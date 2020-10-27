@@ -18,7 +18,7 @@ def index(request):
   geo_url = 'https://nominatim.openstreetmap.org/search?q={}&format=json'
 
   
-  password_token = ''
+  password_token = '1168b0688d3ac2cb67342aaff4f30e96'
 
   geo = requests.get(geo_url.format(search_location)).json()[0]
 
