@@ -242,6 +242,10 @@ h6 { font-size: 16px; }
 	color: black;
 }
 
+#submit-btn:hover p { 
+	color: black;
+}
+
 @media screen and (max-width: 1200px) {
 	.main-container {
 		width: 95%;
