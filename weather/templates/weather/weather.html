@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/weather.css' %}">
+
+</head>
+
+<body>
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Check Weather
+                </h1>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-offset-4 is-4">
+                    <form method="POST" action="">
+                      {% csrf_token %}
+                        <div class="field has-addons">
+                            <div class="control is-expanded">
+                                <input class="input" type="text" placeholder="City, State(optional), Country(optional)" name='search_location'>
+                            </div>
+                            <div class="control">
+                                <button class="button is-info">
+                                    Check Weather
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-offset-2 is-8">
+                    <div class="box">
+                        <article class="media">
+                            <div class="media-left has-text-centered">
+                                <figure class="image is-50x50">
+                                    <img src="http://openweathermap.org/img/wn/{{ icon }}@2x.png" alt="Image">
+                                    <p class="tag is-light is-medium">{{ description }}</p>
+                                </figure>
+                            </div>
+                            <div class="media-content">
+                                <div class="content">
+                                    <p>
+                                        <span class="title">{{ city }}</span>
+                                        <br>
+                                        <span class="subtitle">{{ today }} {{ current_time }}</span>
+                                        <br>
+                                        <br>
+                                        <span class="title is-2">{{ temperature }} °C</span>
+                                    </p>
+                                </div>
+                                {% autoescape off %}
+                                {{ plot }}
+                                {% endautoescape %}
+
+                                <article class="media">
+                                  <div class="media-content has-text-centered">
+                                    <div class="content">
+                                      <div class="columns">
+                                          {% for day in forecasts %}
+                                          <div class="column is-0">
+                                            <span class="subtitle">{{ day.day_of_week }}</span>
+                                            <br>
+                                            <img src="http://openweathermap.org/img/wn/{{ day.icon }}.png" alt="Image">
+                                            <br>
+                                            <span class="text">{{ day.hi }}° {{ day.low }}°</span>
+                                          </div>
+                                          {% endfor %}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </article>
+                            </div>
+                            <div class="media-right">
+                              <div class="content">
+                                <p>
+                                    <span class="subtitle">Feels like: {{ feels_like }} °C</span>
+                                    <br>
+                                    <span class="subtitle">Wind: {{ wind_speed }} km/h</span>
+                                    <br>
+                                    <span class="subtitle">Humidity: {{ humidity }}%</span>
+                                </p>
+                              </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+      <span class="text">Developed by Yahao Yan &nbsp</span>
+      <a href="https://github.com/frankyan1119" rel="noopener noreferrer" target="_blank">
+        <i style="font-size:20px;" class="fa fa-github" aria-hidden="true"></i>
+      </a>
+    </footer>
+</body>
+
+</html>
